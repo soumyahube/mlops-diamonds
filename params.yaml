@@ -1,0 +1,6 @@
+data:
+  raw_path: data/raw/diamonds.csv
+  processed_path: data/processed/diamonds_features.csv
+
+clean:
+  max_dimension_mm: 20
