@@ -1,0 +1,13 @@
+stages:
+  prepare:
+    cmd: python -m src.prepare
+    deps:
+      - ${data.raw_path}
+      - src/load_data.py
+      - src/clean.py
+      - src/features.py
+      - src/prepare.py
+    params:
+      - clean.max_dimension_mm
+    outs:
+      - ${data.processed_path}

@@ -1,0 +1,39 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python -m src.prepare
+    deps:
+    - path: data/raw/diamonds.csv
+      hash: md5
+      md5: 4d3d1d4bbad5e0806dbaec425cf90196
+      size: 2772143
+      isexec: true
+    - path: src/clean.py
+      hash: md5
+      md5: e8596cf6eeac9e576d21fbb803df37ce
+      size: 1909
+      isexec: true
+    - path: src/features.py
+      hash: md5
+      md5: 3826fffcd6da6c0c54365b12906d309f
+      size: 792
+      isexec: true
+    - path: src/load_data.py
+      hash: md5
+      md5: b92f6429f03fba7e5e8869198e03a231
+      size: 649
+      isexec: true
+    - path: src/prepare.py
+      hash: md5
+      md5: daf101a9a6499a6fcb49c915f6026170
+      size: 753
+      isexec: true
+    params:
+      params.yaml:
+        clean.max_dimension_mm: 20
+    outs:
+    - path: data/processed/diamonds_features.csv
+      hash: md5
+      md5: cd62d0973248247691d74024cc3324a7
+      size: 2000682
+      isexec: true
