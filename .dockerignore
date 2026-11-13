@@ -3,3 +3,6 @@ __pycache__/
 mlruns/
 logs/
 .git/
+.env
+.dvc/config.local
+data/
