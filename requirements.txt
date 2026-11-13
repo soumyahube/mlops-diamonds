@@ -1,4 +1,3 @@
-]633;E;for p in pandas numpy scikit-learn joblib mlflow dvc dagshub prefect python-dotenv pyarrow;e6bdbe85-4976-467e-a0f1-e375f3d51171]633;Cpandas==2.3.3
 numpy==2.2.6
 scikit-learn==1.7.2
 joblib==1.6.0
