@@ -5,3 +5,5 @@ __pycache__/
 mlruns/
 logs/
 .env
+models/
+.dvc/config.local
