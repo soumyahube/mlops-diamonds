@@ -1,0 +1,5 @@
+outs:
+- md5: 17348184f1ba50ae50e3370961ed9e40
+  size: 1776403
+  hash: md5
+  path: diamonds_train.csv
