@@ -119,7 +119,11 @@ def main(params_path: str = "params.yaml") -> None:
         if importance_path:
             mlflow.log_artifact(importance_path)
 
-        mlflow.sklearn.log_model(model, "model")
+            mlflow.sklearn.log_model(
+            model,
+            name="model",
+            skops_trusted_types=["sklearn.tree._tree.Tree"],
+        )
         save_model(model, metrics)
 
         logger.info("Run terminé : %s", metrics)
