@@ -7,33 +7,27 @@ stages:
       hash: md5
       md5: 4d3d1d4bbad5e0806dbaec425cf90196
       size: 2772143
-      isexec: true
     - path: src/clean.py
       hash: md5
-      md5: e8596cf6eeac9e576d21fbb803df37ce
-      size: 1909
-      isexec: true
+      md5: 1ca28a5800acf7873e1089342a0883af
+      size: 1958
     - path: src/features.py
       hash: md5
-      md5: 3826fffcd6da6c0c54365b12906d309f
-      size: 792
-      isexec: true
+      md5: 85328e55582ce81eb82ea417b7ab9f58
+      size: 815
     - path: src/load_data.py
       hash: md5
-      md5: b92f6429f03fba7e5e8869198e03a231
-      size: 649
-      isexec: true
+      md5: 663e09507166295caabc760536ddd4a0
+      size: 671
     - path: src/prepare.py
       hash: md5
-      md5: daf101a9a6499a6fcb49c915f6026170
-      size: 753
-      isexec: true
+      md5: a9e62d4759ddda892162fb386009849c
+      size: 780
     params:
       params.yaml:
         clean.max_dimension_mm: 20
     outs:
     - path: data/processed/diamonds_features.csv
       hash: md5
-      md5: cd62d0973248247691d74024cc3324a7
-      size: 2000682
-      isexec: true
+      md5: 17348184f1ba50ae50e3370961ed9e40
+      size: 1776403
