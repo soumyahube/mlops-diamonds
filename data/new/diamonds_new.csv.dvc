@@ -1,0 +1,6 @@
+outs:
+- md5: c69e080a4d49016ce95c00795ee7d751
+  size: 257158
+  isexec: true
+  hash: md5
+  path: diamonds_new.csv

@@ -22,6 +22,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OrdinalEncoder
 
+
 from src.evaluate import (
     evaluate_model,
     plot_feature_importance,
@@ -123,6 +124,9 @@ def main(params_path: str = "params.yaml", overrides: dict | None = None) -> Non
         # graphiques
         mlflow.log_artifact(plot_pred_vs_actual(model, X_test, y_test))
         importance_path = plot_feature_importance(model, FEATURE_NAMES)
+        shap_path = plot_shap_summary(model, X_test, FEATURE_NAMES)
+        if shap_path:
+            mlflow.log_artifact(shap_path)
         if importance_path:
             mlflow.log_artifact(importance_path)
 
