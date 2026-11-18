@@ -5,6 +5,8 @@ data:
 clean:
   max_dimension_mm: 20
 
+# Valeurs par défaut, utilisées par `python -m src.train` (lancement manuel)
+# et par chaque run de la liste `experiments` ci-dessous.
 train:
   train_path: data/processed/diamonds_features.csv
   model: gradient_boosting            # linear | random_forest | gradient_boosting
@@ -14,3 +16,21 @@ train:
   n_estimators: 200
   max_depth: 10
   learning_rate: 0.1
+
+# Utilisé par le DAG Airflow : une tâche et un run MLflow par entrée.
+# Chaque entrée peut redéfinir n'importe quel paramètre de `train:`.
+# `name` doit être unique (lettres, chiffres, _ ou -).
+# Supprime la section (ou laisse-la vide) pour ne lancer qu'un run avec `train:`.
+experiments:
+  - name: linear
+    model: linear
+    log_target: false
+  - name: rf
+    model: random_forest
+    log_target: false
+  - name: rf_log
+    model: random_forest
+    log_target: true
+  - name: gb_log
+    model: gradient_boosting
+    log_target: true

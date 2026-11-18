@@ -1,0 +1,12 @@
+mlflow>=3.0
+scikit-learn
+pandas
+numpy
+pyyaml
+python-dotenv
+matplotlib
+joblib
+skops
+# évite les conflits avec les paquets déjà présents dans l'image Airflow
+cryptography<45
+cffi<2
