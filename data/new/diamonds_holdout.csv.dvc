@@ -1,0 +1,5 @@
+outs:
+- md5: 2b613bafd8e233080c777bc66dc229ed
+  size: 196818
+  hash: md5
+  path: diamonds_holdout.csv
