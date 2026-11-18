@@ -122,6 +122,7 @@ def main(params_path: str = "params.yaml") -> None:
             mlflow.sklearn.log_model(
             model,
             name="model",
+            registered_model_name="diamonds-price-model",
             skops_trusted_types=["sklearn.tree._tree.Tree"],
         )
         save_model(model, metrics)
