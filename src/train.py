@@ -95,11 +95,13 @@ def train_model(X_train, y_train, params: dict):
     return model
 
 
-def main(params_path: str = "params.yaml") -> None:
+def main(params_path: str = "params.yaml", overrides: dict | None = None) -> None:
     load_dotenv()
     with open(params_path) as f:
         all_params = yaml.safe_load(f)
     params = all_params["train"]
+    if overrides:                       # ex. {"model": "linear", "log_target": False}
+        params.update(overrides)
 
     df = pd.read_csv(params["train_path"])
     logger.info("Données chargées : %d lignes", len(df))
