@@ -1,6 +1,13 @@
-"""DAG de test : vérifie que tout fonctionne (env, données, MLflow), puis entraîne.
+"""DAG diamonds_pipeline : vérifications, entraînements indépendants, puis Registry.
 
-check_env -> check_data -> check_mlflow -> train -> register_best
+                                  ┌─ train_linear ─┐
+check_env -> check_data ->        ├─ train_rf ─────┤
+check_mlflow ->                   ├─ train_rf_log ─┼-> register_best
+                                  └─ train_gb_log ─┘
+
+- Les tâches `train_*` sont indépendantes : si l'une échoue, les autres tournent quand même.
+- `register_best` s'exécute une fois que TOUTES les tâches de train sont terminées
+  (réussies ou non) et enregistre le meilleur run dans le Model Registry.
 
 Déclenchement manuel (schedule=None) depuis l'interface Airflow.
 """
@@ -99,7 +106,7 @@ with DAG(
     t_mlflow = PythonOperator(task_id="check_mlflow", python_callable=check_mlflow)
 
     # Une tâche par configuration : chacune crée un run dans MLflow.
-    # Exécutées l'une après l'autre (SQLite n'aime pas l'écriture en parallèle).
+    # Elles ne dépendent pas les unes des autres (exécution en parallèle).
     train_tasks = [
         PythonOperator(
             task_id=f"train_{name}",
@@ -112,9 +119,8 @@ with DAG(
     t_register = BashOperator(
         task_id="register_best",
         bash_command=f"cd {PROJECT_DIR} && python -m src.register_best",
+        trigger_rule="all_done",   # attend la fin de tous les train, même si certains ont échoué
     )
 
-    t_env >> t_data >> t_mlflow >> train_tasks[0]
-    for prev, nxt in zip(train_tasks, train_tasks[1:]):
-        prev >> nxt
-    train_tasks[-1] >> t_register
+    t_env >> t_data >> t_mlflow >> train_tasks
+    train_tasks >> t_register
