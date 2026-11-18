@@ -1,5 +1,9 @@
 """Étape « train » : split -> pipeline sklearn -> entraînement -> run MLflow.
 
+Chaque run est enregistré dans le Tracking MLflow (paramètres, métriques,
+graphiques, modèle comme artefact). Le Model Registry n'est PAS alimenté ici :
+on y enregistre seulement le meilleur modèle avec src/register_best.py.
+
 Usage : python -m src.train
 """
 import logging
@@ -119,12 +123,15 @@ def main(params_path: str = "params.yaml") -> None:
         if importance_path:
             mlflow.log_artifact(importance_path)
 
-            mlflow.sklearn.log_model(
+        # Modèle loggé comme artefact du run (Tracking), pour TOUS les modèles.
+        # Pas de registered_model_name : le Registry est alimenté plus tard,
+        # seulement avec le meilleur modèle (src/register_best.py).
+        mlflow.sklearn.log_model(
             model,
             name="model",
-            registered_model_name="diamonds-price-model",
             skops_trusted_types=["sklearn.tree._tree.Tree"],
         )
+
         save_model(model, metrics)
 
         logger.info("Run terminé : %s", metrics)
